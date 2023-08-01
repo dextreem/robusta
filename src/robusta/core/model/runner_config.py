@@ -20,6 +20,7 @@ from robusta.core.sinks.victorops.victorops_sink_params import VictoropsConfigWr
 from robusta.core.sinks.webex.webex_sink_params import WebexSinkConfigWrapper
 from robusta.core.sinks.webhook.webhook_sink_params import WebhookSinkConfigWrapper
 from robusta.core.sinks.yamessenger.yamessenger_sink_params import YaMessengerSinkConfigWrapper
+from robusta.core.sinks.mysink import MysinkSinkConfigWrapper
 from robusta.model.playbook_definition import PlaybookDefinition
 from robusta.utils.base64_utils import is_base64_encoded
 
@@ -52,6 +53,7 @@ class RunnerConfig(BaseModel):
                 YaMessengerSinkConfigWrapper,
                 JiraSinkConfigWrapper,
                 FileSinkConfigWrapper,
+                MysinkSinkConfigWrapper,
             ]
         ]
     ]

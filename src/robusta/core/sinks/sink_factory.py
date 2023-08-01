@@ -47,4 +47,6 @@ class SinkFactory:
         SinkClass = cls.__sink_config_mapping.get(type(sink_config))
         if SinkClass is None:
             raise Exception(f"Sink not supported {type(sink_config)}")
+        elif isinstance(sink_config, MysinkSinkConfigWrapper):
+            return MysinkSink(sink_config, registry)
         return SinkClass(sink_config, registry)
