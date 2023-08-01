@@ -12,3 +12,8 @@ class MysinkSink(SinkBase):
     def write_finding(self, finding: Finding, platform_enabled: bool):
         print("Hello from the Sink!")
         print(json.dumps(finding))
+
+        f = open("innoweek.txt", "w")
+        f.write("Hello from the Sink!")
+        f.write(json.dumps(finding))
+        f.close()
