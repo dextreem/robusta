@@ -8,7 +8,7 @@ from robusta.core.sinks.sink_config import SinkConfigBase
 
 
 class MysinkSinkParams(SinkBaseParams):
-    nothing: Optional[str]
+    webhook_url: str
 
 
 class MysinkSinkConfigWrapper(SinkConfigBase):
