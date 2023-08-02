@@ -4,7 +4,7 @@ from robusta.core.sinks.sink_base import SinkBase
 from robusta.integrations.msteams.sender import MsTeamsSender
 
 
-class MsTeamsSink(SinkBase):
+class IwMsTeamsSink(SinkBase):
     def __init__(self, sink_config: IwMsTeamsSinkConfigWrapper, registry):
         super().__init__(sink_config.iwms_teams_sink, registry)
         self.webhook_url = sink_config.iwms_teams_sink.webhook_url
