@@ -193,8 +193,8 @@ def gen_config(
     if iwmsteams_webhook:
         sinks_config.append(
             IwMsTeamsSinkConfigWrapper(
-                ms_teams_sink=IwMsTeamsSinkParams(
-                    name="main_ms_teams_sink",
+                iwms_teams_sink=IwMsTeamsSinkParams(
+                    name="main_iwms_teams_sink",
                     webhook_url=iwmsteams_webhook,
                 )
             )
