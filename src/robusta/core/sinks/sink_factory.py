@@ -8,6 +8,7 @@ from robusta.core.sinks.jira import JiraSink, JiraSinkConfigWrapper
 from robusta.core.sinks.kafka import KafkaSink, KafkaSinkConfigWrapper
 from robusta.core.sinks.mattermost import MattermostSink, MattermostSinkConfigWrapper
 from robusta.core.sinks.msteams import MsTeamsSink, MsTeamsSinkConfigWrapper
+from robusta.core.sinks.iwmsteams import IwMsTeamsSink, IwMsTeamsSinkConfigWrapper
 from robusta.core.sinks.opsgenie import OpsGenieSink, OpsGenieSinkConfigWrapper
 from robusta.core.sinks.pagerduty import PagerdutyConfigWrapper, PagerdutySink
 from robusta.core.sinks.robusta import RobustaSink, RobustaSinkConfigWrapper
@@ -19,13 +20,13 @@ from robusta.core.sinks.victorops import VictoropsConfigWrapper, VictoropsSink
 from robusta.core.sinks.webex import WebexSink, WebexSinkConfigWrapper
 from robusta.core.sinks.webhook import WebhookSink, WebhookSinkConfigWrapper
 from robusta.core.sinks.yamessenger import YaMessengerSink, YaMessengerSinkConfigWrapper
-from robusta.core.sinks.mysink import MysinkSink, MysinkSinkConfigWrapper
 
 class SinkFactory:
     __sink_config_mapping: Dict[Type[SinkConfigBase], Type[SinkBase]] = {
         SlackSinkConfigWrapper: SlackSink,
         RobustaSinkConfigWrapper: RobustaSink,
         MsTeamsSinkConfigWrapper: MsTeamsSink,
+        IwMsTeamsSinkConfigWrapper: IwMsTeamsSink,
         KafkaSinkConfigWrapper: KafkaSink,
         DataDogSinkConfigWrapper: DataDogSink,
         DiscordSinkConfigWrapper: DiscordSink,
@@ -39,7 +40,6 @@ class SinkFactory:
         YaMessengerSinkConfigWrapper: YaMessengerSink,
         JiraSinkConfigWrapper: JiraSink,
         FileSinkConfigWrapper: FileSink,
-        MysinkSinkConfigWrapper: MysinkSink,
     }
 
     @classmethod
@@ -47,6 +47,4 @@ class SinkFactory:
         SinkClass = cls.__sink_config_mapping.get(type(sink_config))
         if SinkClass is None:
             raise Exception(f"Sink not supported {type(sink_config)}")
-        elif isinstance(sink_config, MysinkSinkConfigWrapper):
-            return MysinkSink(sink_config, registry)
         return SinkClass(sink_config, registry)

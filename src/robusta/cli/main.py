@@ -27,6 +27,7 @@ from robusta.cli.slack_feedback_message import SlackFeedbackMessagesSender
 from robusta.cli.slack_verification import verify_slack_channel
 from robusta.cli.utils import get_runner_pod, log_title, namespace_to_kubectl
 from robusta.core.sinks.msteams.msteams_sink_params import MsTeamsSinkConfigWrapper, MsTeamsSinkParams
+from robusta.core.sinks.iwmsteams.iwmsteams_sink_params import IwMsTeamsSinkConfigWrapper, IwMsTeamsSinkParams
 from robusta.core.sinks.robusta.robusta_sink_params import RobustaSinkConfigWrapper, RobustaSinkParams
 from robusta.core.sinks.slack.slack_sink_params import SlackSinkConfigWrapper, SlackSinkParams
 from robusta.integrations.prometheus.utils import AlertManagerDiscovery
@@ -109,6 +110,10 @@ def gen_config(
         None,
         help="MsTeams webhook url",
     ),
+    iwmsteams_webhook: str = typer.Option(
+        None,
+        help="IwMsTeams webhook url",
+    ),
     robusta_api_key: str = typer.Option(None),
     enable_prometheus_stack: bool = typer.Option(None),
     disable_cloud_routing: bool = typer.Option(None),
@@ -129,7 +134,7 @@ def gen_config(
         bold=True,
     )
 
-    sinks_config: List[Union[SlackSinkConfigWrapper, RobustaSinkConfigWrapper, MsTeamsSinkConfigWrapper]] = []
+    sinks_config: List[Union[SlackSinkConfigWrapper, RobustaSinkConfigWrapper, MsTeamsSinkConfigWrapper, IwMsTeamsSinkConfigWrapper]] = []
     slack_workspace = "N/A"
     if not slack_api_key and typer.confirm(
         "Configure Slack integration? This is HIGHLY recommended.",
@@ -172,6 +177,25 @@ def gen_config(
                 ms_teams_sink=MsTeamsSinkParams(
                     name="main_ms_teams_sink",
                     webhook_url=msteams_webhook,
+                )
+            )
+        )
+
+    if iwmsteams_webhook is None and typer.confirm(
+        "Configure IwMsTeams integration?",
+        default=False,
+    ):
+        iwmsteams_webhook = typer.prompt(
+            "Please insert your IwMsTeams webhook url. See https://docs.robusta.dev/master/configuration/sinks/ms-teams.html",
+            default=None,
+        )
+
+    if iwmsteams_webhook:
+        sinks_config.append(
+            IwMsTeamsSinkConfigWrapper(
+                ms_teams_sink=IwMsTeamsSinkParams(
+                    name="main_ms_teams_sink",
+                    webhook_url=iwmsteams_webhook,
                 )
             )
         )

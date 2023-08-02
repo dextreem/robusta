@@ -11,6 +11,7 @@ from robusta.core.sinks.jira.jira_sink_params import JiraSinkConfigWrapper
 from robusta.core.sinks.kafka.kafka_sink_params import KafkaSinkConfigWrapper
 from robusta.core.sinks.mattermost.mattermost_sink_params import MattermostSinkConfigWrapper
 from robusta.core.sinks.msteams.msteams_sink_params import MsTeamsSinkConfigWrapper
+from robusta.core.sinks.iwmsteams.iwmsteams_sink_params import IwMsTeamsSinkConfigWrapper
 from robusta.core.sinks.opsgenie.opsgenie_sink_params import OpsGenieSinkConfigWrapper
 from robusta.core.sinks.pagerduty.pagerduty_sink_params import PagerdutyConfigWrapper
 from robusta.core.sinks.robusta.robusta_sink_params import RobustaSinkConfigWrapper
@@ -20,7 +21,6 @@ from robusta.core.sinks.victorops.victorops_sink_params import VictoropsConfigWr
 from robusta.core.sinks.webex.webex_sink_params import WebexSinkConfigWrapper
 from robusta.core.sinks.webhook.webhook_sink_params import WebhookSinkConfigWrapper
 from robusta.core.sinks.yamessenger.yamessenger_sink_params import YaMessengerSinkConfigWrapper
-from robusta.core.sinks.mysink import MysinkSinkConfigWrapper
 from robusta.model.playbook_definition import PlaybookDefinition
 from robusta.utils.base64_utils import is_base64_encoded
 
@@ -42,6 +42,7 @@ class RunnerConfig(BaseModel):
                 DataDogSinkConfigWrapper,
                 KafkaSinkConfigWrapper,
                 MsTeamsSinkConfigWrapper,
+                IwMsTeamsSinkConfigWrapper,
                 OpsGenieSinkConfigWrapper,
                 TelegramSinkConfigWrapper,
                 WebhookSinkConfigWrapper,
@@ -53,7 +54,6 @@ class RunnerConfig(BaseModel):
                 YaMessengerSinkConfigWrapper,
                 JiraSinkConfigWrapper,
                 FileSinkConfigWrapper,
-                MysinkSinkConfigWrapper,
             ]
         ]
     ]
