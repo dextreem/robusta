@@ -7,7 +7,7 @@ class IwMsTeamsSinkParams(SinkBaseParams):
 
 
 class IwMsTeamsSinkConfigWrapper(SinkConfigBase):
-    ms_teams_sink: IwMsTeamsSinkParams
+    iwms_teams_sink: IwMsTeamsSinkParams
 
     def get_params(self) -> SinkBaseParams:
-        return self.ms_teams_sink
+        return self.iwms_teams_sink
