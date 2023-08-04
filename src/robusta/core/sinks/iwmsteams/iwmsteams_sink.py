@@ -39,7 +39,7 @@ class IwMsTeamsSink(SinkBase):
             "Content-Type": "application/json"
         }
 
-        response = requests.get(api_url, headers=headers)
+        response = requests.get(api_url, headers=headers, verify=True)
 
         if response.status_code == 200:
             print(f"SUCCESSFUL RESPONSE: {response.json()}")
@@ -75,7 +75,7 @@ class IwMsTeamsSink(SinkBase):
             }
         }
 
-        response = requests.post(api_url, headers=headers, json=data, stream=True)
+        response = requests.post(api_url, headers=headers, json=data, stream=True, verify=True)
 
         if response.status_code == 200:
             print(f"SUCCESSFUL ran 2: {command}")
