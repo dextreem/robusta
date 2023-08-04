@@ -44,7 +44,7 @@ class IwMsTeamsSink(SinkBase):
         if response.status_code == 200:
             print(f"SUCCESSFUL RESPONSE: {response.json()}")
         else:
-            return f"Error: {response.status_code}, {response.text}"
+            print(f"Error: {response.status_code}, {response.text}")
         
     def run_kubectl_command_in_pod(self, namespace, command):
         # api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
@@ -78,7 +78,7 @@ class IwMsTeamsSink(SinkBase):
         response = requests.post(api_url, headers=headers, json=data, stream=True)
 
         if response.status_code == 200:
-            print(f"Command run: {command}")
+            print(f"SUCCESSFUL ran 2: {command}")
         else:
             print(f"Error: {response.status_code}, {response.text}")
 
