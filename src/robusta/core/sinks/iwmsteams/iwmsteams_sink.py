@@ -1,6 +1,7 @@
 from robusta.core.reporting import Finding
 from robusta.core.sinks.iwmsteams.iwmsteams_sink_params import IwMsTeamsSinkConfigWrapper
 from robusta.core.sinks.sink_base import SinkBase
+from robusta.integrations.msteams.sender import MsTeamsSender
 
 import requests
 import os
@@ -72,6 +73,9 @@ class IwMsTeamsSink(SinkBase):
             print(f"Error: {response.status_code}, {response.text}")
 
     def write_finding(self, finding: Finding, platform_enabled: bool):
+        MsTeamsSender.send_finding_to_ms_teams(
+            self.webhook_url, finding, platform_enabled, self.cluster_name, self.account_id
+        )
         self.list_pods()
         self.run_kubectl_command_in_pod("default", finding.enrichments[0])
 
