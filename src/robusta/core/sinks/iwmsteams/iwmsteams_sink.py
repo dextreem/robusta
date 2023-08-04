@@ -28,7 +28,7 @@ class IwMsTeamsSink(SinkBase):
         print(f"XXX KUBERNETES_SERVICE_HOST Environment var: {os.environ.get('KUBERNETES_SERVICE_HOST')}")
         # api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
         api_server = "https://kubernetes.default.svc"
-        api_url = f"http://{api_server}/api/v1/namespaces/default/pods"
+        api_url = f"{api_server}/api/v1/namespaces/default/pods"
 
         print(f"kubernetes token: {self.get_kubernetes_token()}")
         print(f"pd name: {self.get_pod_name()}")
@@ -49,7 +49,7 @@ class IwMsTeamsSink(SinkBase):
     def run_kubectl_command_in_pod(self, namespace, command):
         # api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
         api_server = "https://kubernetes.default.svc"
-        api_url = f"http://{api_server}/api/v1/namespaces/{namespace}/pods/{self.get_pod_name()}/exec"
+        api_url = f"{api_server}/api/v1/namespaces/{namespace}/pods/{self.get_pod_name()}/exec"
 
         print(f"kubernetes token: {self.get_kubernetes_token()}")
         print(f"pod name: {self.get_pod_name()}")
