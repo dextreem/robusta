@@ -26,7 +26,8 @@ class IwMsTeamsSink(SinkBase):
     def list_pods(self):
         token = self.get_kubernetes_token()
         print(f"XXX KUBERNETES_SERVICE_HOST Environment var: {os.environ.get('KUBERNETES_SERVICE_HOST')}")
-        api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
+        # api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
+        api_server = "https://kubernetes.default.svc"
         api_url = f"http://{api_server}/api/v1/namespaces/default/pods"
 
         print(f"kubernetes token: {self.get_kubernetes_token()}")
@@ -41,16 +42,17 @@ class IwMsTeamsSink(SinkBase):
         response = requests.get(api_url, headers=headers)
 
         if response.status_code == 200:
-            return response.json()
+            print(f"SUCCESSFUL RESPONSE: {response.json()}")
         else:
             return f"Error: {response.status_code}, {response.text}"
         
     def run_kubectl_command_in_pod(self, namespace, command):
-        api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
+        # api_server = os.environ.get("KUBERNETES_SERVICE_HOST", "https://kubernetes.default.svc")
+        api_server = "https://kubernetes.default.svc"
         api_url = f"http://{api_server}/api/v1/namespaces/{namespace}/pods/{self.get_pod_name()}/exec"
 
         print(f"kubernetes token: {self.get_kubernetes_token()}")
-        print(f"pd name: {self.get_pod_name()}")
+        print(f"pod name: {self.get_pod_name()}")
         print(f"container name: {self.get_container_name()}")
 
         headers = {
