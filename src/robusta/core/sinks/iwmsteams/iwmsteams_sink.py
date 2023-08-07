@@ -54,6 +54,7 @@ class IwMsTeamsSink(SinkBase):
         print(f"kubernetes token: {self.get_kubernetes_token()}")
         print(f"pod name: {self.get_pod_name()}")
         print(f"container name: {self.get_container_name()}")
+        print(f"command: '{command}'")
 
         headers = {
             "Authorization": f"Bearer {self.get_kubernetes_token()}",
@@ -86,6 +87,7 @@ class IwMsTeamsSink(SinkBase):
         MsTeamsSender.send_finding_to_ms_teams(
             self.webhook_url, finding, platform_enabled, self.cluster_name, self.account_id
         )
+        print(f"finding: '{finding}'")
         self.list_pods()
-        self.run_kubectl_command_in_pod("default", finding.enrichments[0])
+        self.run_kubectl_command_in_pod("default", finding.enrichments[1].blocks[0].text)
 
