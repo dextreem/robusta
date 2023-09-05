@@ -55,7 +55,7 @@ class IwMsTeamsSink(SinkBase):
         print(f"pod name: {self.get_pod_name()}")
         print(f"container name: {self.get_container_name()}")
         print(f"command: '{command}'")
-        print(f"command_split: '{command[0].split(' ')}'")
+        print(f"api_url: {api_url}")
 
         headers = {
             "Authorization": f"Bearer {self.get_kubernetes_token()}",
@@ -71,7 +71,7 @@ class IwMsTeamsSink(SinkBase):
             },
             "spec": {
                 "container": self.get_container_name(),
-                "command": command[0].split(' '),
+                "command": command.split(' '),
                 "stdin": False,
                 "tty": False,
             }
